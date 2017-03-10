@@ -11,3 +11,5 @@ module.exports = () => {
         .pipe(webpack(webpackConfig, webpack2))
         .pipe(gulp.dest(config.outputFolder));
 }
+
+module.exports.dependencies = ['ts'];

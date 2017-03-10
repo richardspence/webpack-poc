@@ -1,5 +1,9 @@
 var path = require('path');
 var webpack = require('webpack');
+var AssetsPlugin = require('assets-webpack-plugin')
+var PreserveModuleNamesPlugin = require('./PreserveModuleNamesPlugin')
+var assetsPluginInstance = new AssetsPlugin();
+var ManifestPlugin = require('./ManifestPlugin');
 
 const config = {
     context: path.resolve(__dirname, '../../dist'),
@@ -8,7 +12,7 @@ const config = {
         vendor: ['jquery']
     },
     output: {
-        libraryTarget: 'amd',
+        libraryTarget: 'umd',
         filename: '[name].bundle.js',
         umdNamedDefine: true,
         path: path.resolve(__dirname, 'dist')
@@ -16,18 +20,20 @@ const config = {
     resolve: {
         extensions: ['.js'],
         modules: [path.resolve(__dirname, '../../vendor')],
-        alias:{
-            'jquery':'jquery/dist/jquery.min',
+        alias: {
+            'jquery': 'jquery/dist/jquery.min',
         }
     },
     plugins: [
-        new webpack.NamedModulesPlugin(),
+        new PreserveModuleNamesPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
-            names: ['vendor', 'manifest'] ,// Specify the common bundle's name.
-            minChunkgs: Infinity,
-        })
+            names: ['vendor', 'manifest'],// Specify the common bundle's name.
+            minChunks: Infinity,
+        }),
+        assetsPluginInstance,
+        new ManifestPlugin()
     ],
-   
+
 };
 
 module.exports = config;
