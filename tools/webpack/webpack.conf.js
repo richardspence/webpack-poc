@@ -30,7 +30,6 @@ const config = {
             names: ['vendor', 'manifest'],// Specify the common bundle's name.
             minChunks: Infinity,
         }),
-        assetsPluginInstance,
         new ManifestPlugin()
     ],
 

@@ -1,11 +1,12 @@
 var _ = require('lodash');
-var RawSource = require("webpack-sources").RawSource;
+var {OriginalSource} = require("webpack-sources");
 class ManifestPlugin {
     constructor() {
     }
 
     apply(compiler) {
-        compiler.plugin("emit", (compilation) => {
+        compiler.plugin("emit", (compilation, callback) => {
+            var c= compiler;
             var files = compilation.entries.map(e => {
                 const entry = {};
                 const entryName = e.chunks[0].name
@@ -16,7 +17,8 @@ class ManifestPlugin {
                 return entry;
             });
             var src = JSON.stringify(_.merge(...files));
-            compilation.assets['manifest.json'] = new RawSource(src);
+            compilation.assets['manifest.json'] = new OriginalSource(src, 'manifest');
+            callback();
         });
     }
 }
