@@ -5,12 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
-              "type": "node",
+            "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Gulp opt",
             "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
-            "args":["opt"],
-              "cwd": "${workspaceRoot}",
+            "args": [
+                "opt"
+            ],
+            "cwd": "${workspaceRoot}",
+            "outFiles": []
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Gulp tokenize",
+            "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
+            "args": [
+                "tokenize"
+            ],
+            "cwd": "${workspaceRoot}",
             "outFiles": []
         },
         {

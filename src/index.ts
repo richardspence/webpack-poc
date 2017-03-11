@@ -1,8 +1,7 @@
+var bundles = __$buildBundles$__;
+
 requirejs.config({
-    bundles: {
-        'vendor.bundle': ['jquery'],
-        'app.bundle': ['bar']
-    },
+    bundles
 });
 
 const scripts: string[] = [
@@ -10,11 +9,8 @@ const scripts: string[] = [
     'vendor.bundle',
 ];
 
-require(scripts, () => {
-    console.log('loaded1, yay');
-    require(['app.bundle'], () => {
-        require(['./main'], () => {
-            console.log('loaded, yay');
-        });
-    });
+console.log('loaded1, yay');
+require(['./main'], (m) => {
+    console.log('loaded, yay', m);
+    new m.Foo();
 });

@@ -7,9 +7,10 @@ var ManifestPlugin = require('./ManifestPlugin');
 
 const config = {
     context: path.resolve(__dirname, '../../dist'),
+
     entry: {
         app: './main',
-        vendor: ['jquery']
+        vendor: ['jquery', 'react', 'lodash', 'react-dom']
     },
     output: {
         libraryTarget: 'umd',
@@ -19,16 +20,22 @@ const config = {
     },
     resolve: {
         extensions: ['.js'],
-        modules: [path.resolve(__dirname, '../../vendor')],
+        modules: [path.resolve(__dirname, '../../vendor'), path.resolve(__dirname, '../../dist')],
         alias: {
-            'jquery': 'jquery/dist/jquery.min',
+            'jquery': 'jquery/dist/jquery',
+            'lodash': 'lodash/dist/lodash',
+            'react-dom$': 'react/react-dom',
+            'react$': 'react/react-with-addons',
         }
     },
     plugins: [
         new PreserveModuleNamesPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor', 'manifest'],// Specify the common bundle's name.
-            minChunks: Infinity,
+            minChunks: (module)=> {
+                // this assumes your vendor imports exist in the node_modules directory
+                return module.context && module.context.indexOf('vendor') !== -1;
+            },
         }),
         new ManifestPlugin()
     ],

@@ -2,4 +2,4 @@ module.exports = () => {
     
 };
 
-module.exports.dependencies = ['assets', 'ts', 'opt'];
+module.exports.dependencies = ['assets', 'tokenize'];
