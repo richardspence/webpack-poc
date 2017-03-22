@@ -8,6 +8,6 @@ module.exports = ()=>{
             middleware:[cors()]
         },
         open:false,
-        port: 8000,
+        port: 8010,
     })
 }

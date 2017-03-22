@@ -10,17 +10,17 @@ const config = {
 
     entry: {
         app: './main',
-        vendor: ['jquery', 'react', 'lodash', 'react-dom']
+        vendor: ['jquery', 'react', 'lodash', 'react-dom'],
     },
     output: {
         libraryTarget: 'umd',
         filename: '[name].bundle.js',
         umdNamedDefine: true,
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, '../../dist')
     },
     resolve: {
-        extensions: ['.js'],
-        modules: [path.resolve(__dirname, '../../vendor'), path.resolve(__dirname, '../../dist')],
+        extensions: ['.js', '.html'],
+        modules: ['../vendor', path.resolve(__dirname, '../../dist')],
         alias: {
             'jquery': 'jquery/dist/jquery',
             'lodash': 'lodash/dist/lodash',
@@ -28,16 +28,18 @@ const config = {
             'react$': 'react/react-with-addons',
         }
     },
+    resolveLoader: {
+        alias: {
+            'text': 'file-loader?emitFile=false',
+        }
+    },
     plugins: [
         new PreserveModuleNamesPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor', 'manifest'],// Specify the common bundle's name.
-            minChunks: (module)=> {
-                // this assumes your vendor imports exist in the node_modules directory
-                return module.context && module.context.indexOf('vendor') !== -1;
-            },
+            minChunks: Infinity
         }),
-        new ManifestPlugin()
+        new ManifestPlugin({ 'file-loader': 'text' })
     ],
 
 };

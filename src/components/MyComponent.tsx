@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as _ from 'lodash';
+import * as temp from 'text!./template';
 
 export class MyComponent extends React.Component<{}, {}> {
     render() {
@@ -9,6 +10,6 @@ export class MyComponent extends React.Component<{}, {}> {
         });
         return <div >This is my Component.  woot! {keys.map(k => {
             return <p>{k}</p>;
-        })}</div>;
+        })}<div dangerouslySetInnerHTML={{__html: temp}} /></div>;
     }
 }

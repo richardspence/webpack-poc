@@ -14,7 +14,7 @@ module.exports = () => {
         }));
 
     gulp.watch(assetsTask.src, ['assets']);
-    gulp.watch(tsTask.src, ['ts']);
+    gulp.watch(tsTask.src, ['tokenize']);
     return result;
 }
 

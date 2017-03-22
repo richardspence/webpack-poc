@@ -10,7 +10,9 @@ const scripts: string[] = [
 ];
 
 console.log('loaded1, yay');
-require(['./main'], (m) => {
-    console.log('loaded, yay', m);
-    new m.Foo();
-});
+window.onload= () => {
+    require(['./main'], (m) => {
+        console.log('loaded, yay', m);
+        new m.Foo();
+    });
+};
